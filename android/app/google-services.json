@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "14551240788",
+    "project_id": "absolute-accord-352117",
+    "storage_bucket": "absolute-accord-352117.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14551240788:android:a84ceabb5cb77cc4e89dc1",
+        "android_client_info": {
+          "package_name": "com.example.blockchain.wallet_blockchain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14551240788-emo02j9r3leg6ceo06ttbaqu2tl28hg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwDkGMGhXmmhpHZmS-FNzE7pC88D7h4AY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14551240788-emo02j9r3leg6ceo06ttbaqu2tl28hg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
