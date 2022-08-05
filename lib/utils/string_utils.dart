@@ -4,53 +4,62 @@ import 'package:wallet_blockchain/utils/constants.dart';
 
 class StringUtils {
   static bool isEmpty(String? s) {
-    if(s == null) return true;
-    if(s.trim().isEmpty) return true;
+    if (s == null) return true;
+    if (s.trim().isEmpty) return true;
     return false;
   }
+
   //InvalidEmailState
-  static String toInvalidPasswordString(ValidatePasswordState state,BuildContext context) {
+  static String toInvalidPasswordString(
+      ValidatePasswordState state, BuildContext context) {
     switch (state) {
       case ValidatePasswordState.invalid:
-        return "Mật khẩu không hợp lệ";
+        return "Invalid password";
       case ValidatePasswordState.notCorrect:
-        return "Mật khẩu không trùng khớp";
+        return "Password do not match";
       case ValidatePasswordState.short:
-        return "Mật khẩu phải ít nhất 6 kí tự";
+        return "Password must be at least 6 characters";
       case ValidatePasswordState.none:
       default:
         return Constants.EMPTY_STRING;
     }
   }
+
   //InvalidEmailState
-  static String toInvalidEmailString(ValidateEmailState state,BuildContext context) {
+  static String toInvalidEmailString(
+      ValidateEmailState state, BuildContext context) {
     switch (state) {
       case ValidateEmailState.invalid:
-        return "Email không hợp lệ";
+        return "Invalid email format";
       case ValidateEmailState.notCorrect:
-        return "Email không đúng";
+        return "Email not found";
       case ValidateEmailState.none:
       default:
         return Constants.EMPTY_STRING;
     }
   }
+
   //InvalidPhoneState
-  static String toInvalidPhoneString(ValidatePhoneState state,BuildContext context) {
+  static String toInvalidPhoneString(
+      ValidatePhoneState state, BuildContext context) {
     switch (state) {
       case ValidatePhoneState.invalid:
-        return "Số điện thoại không hợp lệ";
+        return "Invalid phone number";
       case ValidatePhoneState.notCorrect:
-        return "Số điện thoại không đúng";
+        return "Phone number not found";
       case ValidatePhoneState.none:
       default:
         return Constants.EMPTY_STRING;
     }
-  }  static String toInvalidCoinString(ValidateCoinState state,BuildContext context) {
+  }
+
+  static String toInvalidCoinString(
+      ValidateCoinState state, BuildContext context) {
     switch (state) {
       case ValidateCoinState.invalid:
-        return "Số coin nhập không hợp lệ";
+        return "Invalid coin number";
       case ValidateCoinState.notCorrect:
-        return "Số coin của bạn không đủ!!";
+        return "Your coins are not enough!!";
       case ValidateCoinState.none:
       default:
         return Constants.EMPTY_STRING;

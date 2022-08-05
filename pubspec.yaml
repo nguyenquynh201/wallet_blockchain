@@ -41,7 +41,10 @@ dependencies:
   loading_animation_widget: ^1.2.0+2
   provider: ^6.0.3
   fluttertoast: ^8.0.9
-
+  dio: ^4.0.6
+  cached_network_image: ^3.2.1
+  syncfusion_flutter_charts: ^19.1.67
+  intl: ^0.17.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -102,12 +102,14 @@ class ProfileViewModel extends BaseViewModel {
   double get totalCoin => _totalCoin;
 
   void totalCoinSend() {
-    /// transaction fee 5 %
     if (int.parse(_coinSend) < 10) {
+      /// coin <10 transaction fee free
       _totalCoin = double.parse(_coinSend);
-    } else if (int.parse(_coinSend) < 20 && int.parse(_coinSend) >= 10) {
+    } else if (int.parse(_coinSend) <= 20 && int.parse(_coinSend) >= 10) {
+      ///  10 <= coin <= 20 transaction fee 5 %
       _totalCoin = (int.parse(_coinSend) - (2 / 100 * 100));
     } else {
+      /// coin > 20 transaction fee 5 %
       _totalCoin = (int.parse(_coinSend) - (5 / 100 * 100));
     }
 

@@ -1,27 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:wallet_blockchain/data/entity/chart_entity.dart';
+import 'package:wallet_blockchain/data/entity/coin_entity.dart';
+import 'package:wallet_blockchain/data/entity/data_entity.dart';
 import 'package:wallet_blockchain/data/entity/user_entiy.dart';
+import 'package:wallet_blockchain/data/repository/coin_responsitory.dart';
+import 'package:wallet_blockchain/enum/view_state_enum.dart';
 import 'package:wallet_blockchain/viewmodels/base_view_model.dart';
 
 class HomeViewModel extends BaseViewModel {
   @override
   void onInitView(BuildContext context) {
     super.onInitView(context);
+    _fetchDataCoin();
   }
-  UserEntity? _userEntity;
-  UserEntity? get userEntity => _userEntity;
-  void handleUser() {
-    final id = FirebaseAuth.instance.currentUser!.uid;
-    final moviesRef = FirebaseFirestore.instance.collection('users').withConverter<UserEntity>(
-      fromFirestore: (snapshot, _) => UserEntity.fromJson(snapshot.data()!),
-      toFirestore: (movie, _) => movie.toJson(),
-    );
-  final user =  moviesRef.get();
- 
-  }
-  Future<UserEntity> getUser(UserEntity entity) async{
-    _userEntity = entity;
-    return entity;
+
+  List<DataEntity> _coin = [];
+
+  List<DataEntity> get coin => List.from(_coin);
+
+  void _fetchDataCoin() async {
+    setState(ViewState.busy);
+    try {
+      final coin = await CoinRepository.instance.getDataCoin();
+      _coin = coin.dataModel;
+    } catch (e) {}
+    setState(ViewState.success);
   }
 }
