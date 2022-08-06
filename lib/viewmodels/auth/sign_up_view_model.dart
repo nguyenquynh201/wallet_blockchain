@@ -127,8 +127,8 @@ class SignUpViewModel extends BaseViewModel {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: _email.toString().trim(),
-              password: _password.toString().trim())
+          email: _email.toString().trim(),
+          password: _password.toString().trim())
           .then((value) {
         UserEntity userEntity = UserEntity(
             id: value.user!.uid,
@@ -141,6 +141,7 @@ class SignUpViewModel extends BaseViewModel {
             .collection('users')
             .doc(value.user!.uid)
             .set(userEntity.toJson());
+
       });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         backgroundColor: Colors.green,

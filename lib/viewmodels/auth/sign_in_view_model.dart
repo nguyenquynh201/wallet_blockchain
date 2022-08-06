@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wallet_blockchain/enum/validate_state.dart';
@@ -62,13 +63,17 @@ class SignInViewModel extends BaseViewModel {
   void navigateToSignUpScreen() {
     NavigationService.instance.NavigationSignUpView(context);
   }
+
   bool get isEnable {
     return !Validators.isEmpty(_email) && !Validators.isEmpty(_password);
   }
+
   void clickLogin() async {
-    final login =  await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _email.toString().trim(), password: _password.toString().trim());
-    if(login != null) {
+    final login = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+            email: _email.toString().trim(),
+            password: _password.toString().trim());
+    if (login != null) {
       NavigationService.instance.NavigationHomeView(context);
     }
   }

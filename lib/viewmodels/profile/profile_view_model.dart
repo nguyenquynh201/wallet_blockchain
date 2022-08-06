@@ -89,12 +89,15 @@ class ProfileViewModel extends BaseViewModel {
 
   void onChangWalletCoin(String value) {
     _walletCoin = value;
-    totalCoinSend();
     updateUI();
   }
 
   bool get isEnable {
     return !Validators.isEmpty(_coinSend) &&
+        !Validators.isEmpty(_walletCoin) &&
+        !Validators.isEmpty(_idUserSend);
+  } bool get isEnableAll {
+    return
         !Validators.isEmpty(_walletCoin) &&
         !Validators.isEmpty(_idUserSend);
   }
@@ -117,7 +120,42 @@ class ProfileViewModel extends BaseViewModel {
 
     updateUI();
   }
+  void sendCoinAll() async {
+    NavigationService.instance
+        .showProgressingDialog(context: context, message: "Sending data....");
+    try {
+      UserEntity _entityCurrent = UserEntity(coin: 0);
+      NotificationEntity notificationEntity = NotificationEntity(
+          id: _idUserSend,
+          createBy: _entity!.id,
+          isRead: false,
+          createdAt: DateTime.now(),
+          title: "${_entity!.name!} send coin",
+          numberCoin: _entity!.coin!,
+          description: "");
+      /// create collection notification
+      /// update receiver wallet
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(_idUserSend)
+          .collection("notification")
+          .add(notificationEntity.toJson());
 
+      /// update wallet current
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(_entity!.id)
+          .update(_entityCurrent.toJsonUpdate());
+      Future.delayed(const Duration(seconds: 1));
+      NavigationService.instance.hideProgressingLoad(context);
+      NavigationService.instance.backNavigation(context);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.green,
+        padding: EdgeInsets.only(left: 100),
+        content: Text("Sending data successfully"),
+      ));
+    } catch (e) {}
+  }
   void sendCoinToUser() async {
     if (int.parse(_coinSend) > _entity!.coin!) {
       _validateCoinState = ValidateCoinState.notCorrect;

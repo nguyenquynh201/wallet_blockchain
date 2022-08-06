@@ -111,7 +111,22 @@ class _ProfileViewState extends State<ProfileView> {
                       color: UIColors.white, fontWeight: FontWeight.w700),
                 );
               },
-              selector: (_, viewModel) => viewModel.isEnable)
+              selector: (_, viewModel) => viewModel.isEnable),
+          _buildSizeBox(height: 10),
+          Selector<ProfileViewModel, bool>(
+              builder: (_, enable, __) {
+                return UIButton(
+                  padding: const EdgeInsets.only(bottom: 18),
+                  enabled: enable,
+                  onPressed: () {
+                    _profileViewModel.sendCoinAll();
+                  },
+                  title: "Send all coin",
+                  titleStyle: const TextStyle(
+                      color: UIColors.white, fontWeight: FontWeight.w700),
+                );
+              },
+              selector: (_, viewModel) => viewModel.isEnableAll)
         ],
       ),
     );
