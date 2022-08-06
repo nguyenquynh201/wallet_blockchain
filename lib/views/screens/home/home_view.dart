@@ -89,7 +89,12 @@ class _HomeViewState extends State<HomeView> with RouteAware {
   }
 
   Widget _buildHeader({required UserEntity entity}) {
-    return HomeHeader(entity: entity);
+    return HomeHeader(
+      entity: entity,
+      onPressed: () {
+        _homeViewModel.navigationToNotificationView(id: id);
+      },
+    );
   }
 
   Widget _buildBody() {

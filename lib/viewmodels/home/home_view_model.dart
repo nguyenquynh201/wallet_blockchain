@@ -7,6 +7,8 @@ import 'package:wallet_blockchain/data/entity/data_entity.dart';
 import 'package:wallet_blockchain/data/entity/user_entiy.dart';
 import 'package:wallet_blockchain/data/repository/coin_responsitory.dart';
 import 'package:wallet_blockchain/enum/view_state_enum.dart';
+import 'package:wallet_blockchain/services/navigation_service.dart';
+import 'package:wallet_blockchain/utils/constants.dart';
 import 'package:wallet_blockchain/viewmodels/base_view_model.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -27,5 +29,10 @@ class HomeViewModel extends BaseViewModel {
       _coin = coin.dataModel;
     } catch (e) {}
     setState(ViewState.success);
+  }
+  void navigationToNotificationView({required String id}) {
+    NavigationService.instance.navigationNotificationView(context , arguments: {
+      Constants.USER_ID : id
+    });
   }
 }

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.blockchain.wallet_blockchain">
    <application
-        android:label="wallet_blockchain"
+        android:label="Wallet BlockChain"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

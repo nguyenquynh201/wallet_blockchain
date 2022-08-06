@@ -9,9 +9,11 @@ import 'package:wallet_blockchain/views/widgets/ui_text.dart';
 class BackHeaderWidget extends StatelessWidget {
   final String title;
   final VoidCallback onPressed;
+  final bool isHide;
   const BackHeaderWidget({
     Key? key,
-    required this.title, required this.onPressed,
+    required this.title,
+    required this.onPressed,  this.isHide = false,
   }) : super(key: key);
 
   @override
@@ -41,22 +43,26 @@ class BackHeaderWidget extends StatelessWidget {
               ),
               child: _buildTitle(),
             ),
+            isHide == true ?
             Padding(
-              padding: const EdgeInsets.only(right: 10,top: 10),
+              padding: const EdgeInsets.only(right: 10, top: 10),
               child: _buildIconButton(
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    AssetImages.iconLogout,
-                    fit: BoxFit.contain,
-                    color: UIColors.divided,
+                  child: Container(
+                    width: 24,
+                    height: 24,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      AssetImages.iconLogout,
+                      fit: BoxFit.contain,
+                      color: UIColors.divided,
+                    ),
                   ),
-                ),
-                onPressed: onPressed
+                  onPressed: onPressed),
+            ) : const Padding(
+              padding: EdgeInsets.only(
+                right: 10,
               ),
-              ),
+            ),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:wallet_blockchain/views/screens/auth/sign_in_view.dart';
 import 'package:wallet_blockchain/views/screens/auth/sign_up_view.dart';
 import 'package:wallet_blockchain/views/screens/home/home_view.dart';
 import 'package:wallet_blockchain/views/screens/home/main_view.dart';
+import 'package:wallet_blockchain/views/screens/notification/notification_view.dart';
 import 'package:wallet_blockchain/views/screens/profile/profile_view.dart';
 import 'package:wallet_blockchain/views/screens/splash_view.dart';
 import 'package:wallet_blockchain/views/widgets/ui_text.dart';
@@ -28,6 +29,7 @@ class NavigationService {
   static const String SIGN_UP_ROUTER = "/SIGN_UP_ROUTER";
   static const String MAIN_ROUTER = "/MAIN_ROUTER";
   static const String PROFILE_ROUTE = "/PROFILE_ROUTE";
+  static const String NOTIFICATION_ROUTE = "/NOTIFICATION_ROUTE";
 
   String initialRouterApp() => SPLASH_PROGRESS_ROUTER;
 
@@ -46,6 +48,12 @@ class NavigationService {
         return MaterialPageRoute(
             builder: (_) => ProfileView(
                   entity: arg[Constants.ENTITY],
+                ));
+      case NOTIFICATION_ROUTE:
+        final arg = routeSettings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (_) => NotificationView(
+                  idEntity: arg[Constants.USER_ID],
                 ));
       case HOME_ROUTER:
         return MaterialPageRoute(builder: (_) => const HomeView());
@@ -73,12 +81,19 @@ class NavigationService {
   void NavigationProfileView(BuildContext context, {Object? arguments}) {
     Navigator.pushNamed(context, PROFILE_ROUTE, arguments: arguments);
   }
+
+  void navigationNotificationView(BuildContext context, {Object? arguments}) {
+    Navigator.pushNamed(context, NOTIFICATION_ROUTE , arguments: arguments);
+  }
+
   void backNavigation(BuildContext context) {
     Navigator.pop(context);
   }
+
   void hideProgressingLoad(BuildContext context) {
     Navigator.of(context, rootNavigator: true).pop();
   }
+
   void showProgressingDialog({
     required BuildContext context,
     required String message,

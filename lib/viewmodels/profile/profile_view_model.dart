@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:wallet_blockchain/data/entity/notification_entity.dart';
 import 'package:wallet_blockchain/data/entity/user_entiy.dart';
 import 'package:wallet_blockchain/enum/validate_state.dart';
 import 'package:wallet_blockchain/enum/view_state_enum.dart';
@@ -20,6 +21,7 @@ class ProfileViewModel extends BaseViewModel {
   List<UserEntity> _user = [];
 
   List<UserEntity> get user => List.from(_user);
+
 
   UserEntity? _entity;
 
@@ -126,15 +128,23 @@ class ProfileViewModel extends BaseViewModel {
         .showProgressingDialog(context: context, message: "Sending data....");
     try {
       final totalNewUserCurrent = _entity!.coin! - _totalCoin;
-      final totalNewUserSend = _entitySendCoin!.coin! + _totalCoin;
       UserEntity _entityCurrent = UserEntity(coin: totalNewUserCurrent);
-      UserEntity _entitySend = UserEntity(coin: totalNewUserSend);
+
+      NotificationEntity notificationEntity = NotificationEntity(
+          id: _idUserSend,
+          createBy: _entity!.id,
+          isRead: false,
+          createdAt: DateTime.now(),
+          title: "${_entity!.name!} send coin",
+          numberCoin: _totalCoin,
+          description: "");
 
       /// update receiver wallet
       FirebaseFirestore.instance
           .collection('users')
           .doc(_idUserSend)
-          .update(_entitySend.toJsonUpdate());
+          .collection("notification")
+          .add(notificationEntity.toJson());
 
       /// update wallet current
       FirebaseFirestore.instance

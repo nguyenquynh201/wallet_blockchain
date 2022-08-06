@@ -63,6 +63,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   Widget _buildHeader() {
     return BackHeaderWidget(
+      isHide: true,
       title: widget.entity.name!,
       onPressed: () {
         FirebaseAuth.instance.signOut();

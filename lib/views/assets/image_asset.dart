@@ -6,4 +6,5 @@ class AssetImages {
   static const String defaultAccount = "assets/image/default-user.png";
   static const String iconBack = "assets/icon/ic-back.svg";
   static const String iconLogout = "assets/image/ic-logout.png";
+  static const String iconNotification = "assets/image/ic-notification.png";
 }

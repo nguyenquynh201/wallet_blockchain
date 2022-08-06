@@ -8,8 +8,8 @@ import 'package:wallet_blockchain/views/widgets/ui_text.dart';
 
 class HomeHeader extends StatefulWidget {
   final UserEntity entity;
-
-  const HomeHeader({Key? key, required this.entity}) : super(key: key);
+  final VoidCallback onPressed;
+  const HomeHeader({Key? key, required this.entity, required this.onPressed}) : super(key: key);
 
   @override
   State<HomeHeader> createState() => _HomeHeaderState();
@@ -21,19 +21,40 @@ class _HomeHeaderState extends State<HomeHeader> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 100,
-      padding: EdgeInsets.only(left: 10, top: 10),
+      padding: const EdgeInsets.only(left: 10, top: 10),
       decoration: BoxDecoration(
         color: UIColors.colorBackground,
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildThumbnail(),
-          SizedBox(
-            width: 5,
+          Row(
+            children: [
+              _buildThumbnail(),
+              const SizedBox(
+                width: 5,
+              ),
+              _buildName(profileName: widget.entity.name!)
+            ],
           ),
-          _buildName(profileName: widget.entity.name!)
+          Padding(
+            padding: const EdgeInsets.only(right: 10,top: 10),
+            child: _buildIconButton(
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    AssetImages.iconNotification,
+                    fit: BoxFit.contain,
+                    color: UIColors.white,
+                  ),
+                ),
+                onPressed: widget.onPressed
+            ),
+          ),
         ],
       ),
     );
@@ -72,6 +93,19 @@ class _HomeHeaderState extends State<HomeHeader> {
           fontWeight: FontWeight.w700,
           fontSize: 18,
         ),
+      ),
+    );
+  }
+  Widget _buildIconButton({
+    required Widget child,
+    VoidCallback? onPressed,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(24),
+        child: child,
+        onTap: onPressed,
       ),
     );
   }
